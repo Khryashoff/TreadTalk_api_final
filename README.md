@@ -125,7 +125,7 @@ Example of a response in body:
 
 ## Resources
 ```
-#Project documentation
+# Project documentation
 http://127.0.0.1:8000/redoc/
 ```
 
