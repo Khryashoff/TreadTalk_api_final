@@ -22,7 +22,7 @@ cd api_final_yatube/
 python -m venv venv
 ```
 ```bash
-<sup># for OS Windows</sup>
+# for OS Windows
 . venv/Scripts/activate
 ```
 3. Update pip and install dependencies from the file requirements.txt:
@@ -125,7 +125,7 @@ Example of a response in body:
 
 ## Resources
 ```
-<sup>Project documentation</sup>
+#Project documentation
 http://127.0.0.1:8000/redoc/
 ```
 
