@@ -9,6 +9,9 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
     Аутентифицированные авторы публикаций могут редактировать или удалять их.
     """
     def has_permission(self, request, view):
+        """
+        Проверяет, имеет ли данный запрос права доступа к представлению.
+        """
         return (request.method in permissions.SAFE_METHODS
                 or request.user.is_authenticated)
 

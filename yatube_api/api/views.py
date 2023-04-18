@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
@@ -8,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from posts.models import Group, Post
 
+from api.mixins import CreateListViewSet
 from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (GroupSerializer, PostSerializer,
                              CommentSerializer, FollowSerializer)
@@ -49,20 +50,18 @@ class CommentViewSet(viewsets.ModelViewSet):
         Возвращает queryset, который содержит все комментарии,
         связанные с определенным постом.
         """
-        post = get_object_or_404(Post, id=self.kwargs.get('post_id'))
+        post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         return post.comments.all()
 
     def perform_create(self, serializer):
         """
         Создает новый комментарий, связанный с определенным постом.
         """
-        post = get_object_or_404(Post, id=self.kwargs.get('post_id'))
+        post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(mixins.CreateModelMixin,
-                    mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
+class FollowViewSet(CreateListViewSet):
     """
     Набор представлений для работы с подписками.
     """
